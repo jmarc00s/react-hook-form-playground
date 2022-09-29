@@ -14,11 +14,18 @@ export const TellMeMore = () => {
   return (
     <div className="flex flex-col">
       <label htmlFor="tellMoreToggle" className="pb-4">
-        <input type="checkbox" id="tellMoreToggle" onChange={handleOnChange} />
+        <input
+          type="checkbox"
+          id="tellMoreToggle"
+          className="checkbox checkbox-sm"
+          onChange={handleOnChange}
+        />
         <span className="text-white pl-2">Plz tell us more</span>
       </label>
 
-      {showInput && <textarea id="tellMore" {...register('tellMeMore')} />}
+      {showInput && (
+        <textarea id="tellMore" className="input" {...register('tellMeMore')} />
+      )}
     </div>
   );
 };

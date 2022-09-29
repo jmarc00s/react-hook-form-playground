@@ -18,37 +18,38 @@ export const FormPage = () => {
   };
 
   return (
-    <section>
+    <section className="">
       <h1 className="text-center text-xl mb-8">
         Form with useFormContext and conditional Field
       </h1>
       <FormProvider {...methods}>
         <form
-          className="items-center flex flex-col gap-2 text-slate-800"
+          className="items-center flex flex-col gap-2"
           onSubmit={methods.handleSubmit(onSubmit)}
         >
           <input
+            className="input"
             type="text"
             id="name"
             placeholder="Name"
             {...methods.register('name')}
           />
           <input
+            className="input"
             type="email"
             id="email"
             placeholder="E-mail"
             {...methods.register('email')}
           />
           <input
+            className="input"
             type="number"
             id="age"
             placeholder="Age"
             {...methods.register('age')}
           />
           <TellMeMore />
-          <button className="bg-blue-600 rounded-sm shadow-sm px-4 py-2">
-            Save
-          </button>
+          <button className="btn btn-primary">Save</button>
         </form>
       </FormProvider>
     </section>
