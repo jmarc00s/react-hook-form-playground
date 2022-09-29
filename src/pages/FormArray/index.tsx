@@ -1,10 +1,6 @@
 import React, { useEffect, useMemo } from 'react';
 import { useFieldArray, useForm, useFormState } from 'react-hook-form';
 
-interface FormProps {
-  value: string;
-}
-
 export const FormArrayPage = () => {
   const {
     register,
