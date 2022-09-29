@@ -3,7 +3,7 @@ import { MenuItem } from './MenuItem';
 
 export const Menu = () => {
   return (
-    <ul className="flex">
+    <ul className="menu menu-horizontal">
       <MenuItem label="Form" to="/" />
       <MenuItem label="Form Array" to="/formArray" />
       <MenuItem label="Form With conditional" to="/formConditional" />

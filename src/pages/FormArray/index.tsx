@@ -28,14 +28,14 @@ export const FormArrayPage = () => {
             return (
               <div key={field.id} className="py-2">
                 <input
-                  className="text-slate-800 w-3/4 mr-auto"
+                  className="input w-3/4"
                   key={field.id}
                   type="text"
                   placeholder="Value"
                   {...register(`test.${index}.value` as const)}
                 />
                 <button
-                  className="bg-red-500 text-white w-1/4 h-10"
+                  className="btn btn-outline btn-error w-1/4"
                   onClick={() => remove(index)}
                 >
                   Remove
@@ -44,9 +44,7 @@ export const FormArrayPage = () => {
             );
           })}
         </div>
-        <button className="text-white bg-blue-600 rounded-sm shadow-sm px-4 py-2 w-full ">
-          Send
-        </button>
+        <button className="btn btn-primary btn-block">Send</button>
       </form>
       <button onClick={handleCreateField}>Append</button>
     </section>
