@@ -33,6 +33,12 @@ type FormWithSteps = {
 export const FormWithStepsPage = () => {
   const { ...methods } = useForm<FormWithSteps>({
     mode: 'onChange',
+    defaultValues: {
+      firstStep: {
+        name: '',
+        age: 0,
+      },
+    },
   });
   const { isValid } = useFormState({ control: methods.control });
 
