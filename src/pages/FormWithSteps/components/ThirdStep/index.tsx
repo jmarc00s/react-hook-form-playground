@@ -2,7 +2,7 @@ import React from 'react';
 import { useFieldArray, useFormContext } from 'react-hook-form';
 import { Input } from '../../../../components/Input';
 
-const FORM_ARRAY_NAME = 'thirdStep';
+const FORM_ARRAY_NAME = 'thirdStep.friends';
 
 export const ThirdStep = () => {
   const { register, control } = useFormContext();
@@ -21,15 +21,7 @@ export const ThirdStep = () => {
 
   return (
     <section className="flex flex-col gap-2">
-      <div className="flex flex-col items-center mb-4">
-        <h1 className="text-center mb-4">Friends</h1>
-        <button
-          className="btn btn-accent btn-wide"
-          onClick={handleAddFriendClick}
-        >
-          Add friend
-        </button>
-      </div>
+      <h1 className="text-center mb-4 text-xl">Friends</h1>
       {fields.map((field, index) => {
         return (
           <div key={field.id} className="py-2 flex gap-2 items-center">
@@ -54,6 +46,14 @@ export const ThirdStep = () => {
           </div>
         );
       })}
+      <div className="flex flex-col items-center mb-4">
+        <button
+          className="btn btn-accent btn-wide"
+          onClick={handleAddFriendClick}
+        >
+          Add friend
+        </button>
+      </div>
     </section>
   );
 };

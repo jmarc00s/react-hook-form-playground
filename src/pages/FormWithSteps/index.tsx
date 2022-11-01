@@ -34,9 +34,10 @@ export const FormWithStepsPage = () => {
   const { ...methods } = useForm<FormWithSteps>({
     mode: 'onChange',
     defaultValues: {
-      firstStep: {
-        name: '',
-        age: 0,
+      firstStep: {},
+      secondStep: {},
+      thirdStep: {
+        friends: [],
       },
     },
   });
