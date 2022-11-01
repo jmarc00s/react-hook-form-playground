@@ -17,7 +17,7 @@ type SecondStepForm = {
 
 type Friend = {
   name: string;
-  age: number;
+  email: string;
 };
 
 type ThirdStepForm = {
