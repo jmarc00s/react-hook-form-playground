@@ -1,6 +1,7 @@
 import React from 'react';
-import { useFieldArray, useFormContext } from 'react-hook-form';
+import { useFieldArray, useFormContext, useFormState } from 'react-hook-form';
 import { Input } from '../../../../components/Input';
+import { FormWithSteps } from '../../utils/types';
 
 const FORM_ARRAY_NAME = 'thirdStep.friends';
 
@@ -10,6 +11,8 @@ export const ThirdStep = () => {
     name: FORM_ARRAY_NAME,
     control,
   });
+
+  const { errors } = useFormState<FormWithSteps>();
 
   const handleAddFriendClick = (event: any) => {
     event.preventDefault();
@@ -23,6 +26,10 @@ export const ThirdStep = () => {
     <section className="flex flex-col gap-2">
       <h1 className="text-center mb-4 text-xl">Friends</h1>
       {fields.map((field, index) => {
+        const errorMessage = errors?.thirdStep?.friends?.length
+          ? errors?.thirdStep?.friends[index]?.email?.message
+          : '';
+
         return (
           <div key={field.id} className="py-2 flex gap-2 items-center">
             <Input
@@ -34,6 +41,7 @@ export const ThirdStep = () => {
               type="string"
               placeholder="Email"
               {...register(`${FORM_ARRAY_NAME}.${index}.email` as const)}
+              errorMessage={errorMessage}
             />
             <div className="px-1">
               <button

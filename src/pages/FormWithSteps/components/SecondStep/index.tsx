@@ -3,7 +3,10 @@ import { useFormContext } from 'react-hook-form';
 import { Input } from '../../../../components/Input';
 
 export const SecondStep = () => {
-  const { register } = useFormContext();
+  const {
+    register,
+    formState: { errors },
+  } = useFormContext();
 
   return (
     <section className="flex flex-col gap-2">

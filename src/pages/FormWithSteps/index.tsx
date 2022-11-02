@@ -4,34 +4,7 @@ import { Link, Outlet, useNavigate } from 'react-router-dom';
 import { undefined, z } from 'zod';
 import { zodResolver } from '@hookform/resolvers/zod';
 import * as validationMessages from '../../utils/validation/messages';
-
-type FirstStepForm = {
-  name: string;
-  age: number;
-  street: string;
-  neighborhood: string;
-  documentNumber: string;
-};
-
-type SecondStepForm = {
-  motherName: string;
-  fatherName: string;
-};
-
-type Friend = {
-  name: string;
-  email: string;
-};
-
-type ThirdStepForm = {
-  friends: Friend[];
-};
-
-export type FormWithSteps = {
-  firstStep: FirstStepForm;
-  secondStep: SecondStepForm;
-  thirdStep: ThirdStepForm;
-};
+import { FormStep, FormWithSteps } from './utils/types';
 
 const schema = z.object({
   firstStep: z.object({
@@ -40,25 +13,23 @@ const schema = z.object({
       .number()
       .nonnegative(validationMessages.CANT_BE_NEGATIVE)
       .min(1, validationMessages.CANT_BE_EMPTY),
+    street: z.string(),
+    neighborhood: z.string(),
+    documentNumber: z.string(),
+  }),
+  secondStep: z.object({
+    motherName: z.string(),
+    fatherName: z.string(),
+  }),
+  thirdStep: z.object({
+    friends: z.array(
+      z.object({
+        name: z.string(),
+        email: z.string().email(validationMessages.EMAIL_MUST_BE_VALID),
+      })
+    ),
   }),
 });
-
-type FormStepDef = 'first' | 'second' | 'third' | null;
-
-class FormStep {
-  name: FormStepDef;
-  next?: FormStepDef;
-  previous?: FormStepDef;
-
-  constructor(name: FormStepDef, next?: FormStepDef, previous?: FormStepDef) {
-    this.name = name;
-    this.next = next;
-    this.previous = previous;
-  }
-
-  hasNext = (): boolean => !!this.next?.length;
-  hasPrevious = (): boolean => !!this.previous?.length;
-}
 
 const formSteps = {
   first: new FormStep('first', 'second'),
@@ -68,6 +39,10 @@ const formSteps = {
 
 export const FormWithStepsPage = () => {
   const [activeStep, setActiveStep] = useState<FormStep>(formSteps['first']);
+
+  useEffect(() => {
+    navigate('/steps/first');
+  }, []);
 
   const { ...methods } = useForm<FormWithSteps>({
     mode: 'onChange',
@@ -82,17 +57,13 @@ export const FormWithStepsPage = () => {
   });
 
   const navigate = useNavigate();
-
   const { isValid } = useFormState({ control: methods.control });
 
   const onSubmit = (data: FormWithSteps) => console.log(data);
 
-  useEffect(() => {
-    navigate('/steps/first');
-  }, []);
-
   const handleNextStepClick = (event: React.MouseEvent<HTMLButtonElement>) => {
     event.preventDefault();
+
     if (activeStep.hasNext()) {
       const nextStep = activeStep.next!;
       setActiveStep(formSteps[nextStep]);
@@ -104,6 +75,7 @@ export const FormWithStepsPage = () => {
     event: React.MouseEvent<HTMLButtonElement>
   ) => {
     event.preventDefault();
+
     if (activeStep.hasPrevious()) {
       const previousStep = activeStep.previous!;
       setActiveStep(formSteps[previousStep]);
@@ -121,7 +93,6 @@ export const FormWithStepsPage = () => {
       <FormProvider {...methods}>
         <form onSubmit={methods.handleSubmit(onSubmit)} className="mt-8">
           <Outlet />
-
           <div className="flex justify-between mt-8">
             <button
               disabled={!activeStep.hasPrevious()}
@@ -132,7 +103,6 @@ export const FormWithStepsPage = () => {
             </button>
             {activeStep.hasNext() ? (
               <button
-                disabled={!isValid}
                 className="btn btn-primary btn-wide"
                 onClick={handleNextStepClick}
               >
