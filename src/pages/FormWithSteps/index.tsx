@@ -1,10 +1,11 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import { FormProvider, useForm, useFormState } from 'react-hook-form';
-import { Link, Outlet, useNavigate } from 'react-router-dom';
-import { undefined, z } from 'zod';
+import { Outlet, useNavigate } from 'react-router-dom';
+import { z } from 'zod';
 import { zodResolver } from '@hookform/resolvers/zod';
 import * as validationMessages from '../../utils/validation/messages';
 import { FormStep, FormWithSteps } from './utils/types';
+import classNames from 'classnames';
 
 const schema = z.object({
   firstStep: z.object({
@@ -39,10 +40,6 @@ const formSteps = {
 
 export const FormWithStepsPage = () => {
   const [activeStep, setActiveStep] = useState<FormStep>(formSteps['first']);
-
-  useEffect(() => {
-    navigate('/steps/first');
-  }, []);
 
   const { ...methods } = useForm<FormWithSteps>({
     mode: 'onChange',
@@ -86,9 +83,24 @@ export const FormWithStepsPage = () => {
   return (
     <section className="flex flex-col w-1/2 mx-auto">
       <ul className="steps">
-        <li className="step">You</li>
-        <li className="step">Parents</li>
-        <li className="step">Friends</li>
+        <li className={classNames('step', 'step-primary')}>You</li>
+        <li
+          className={classNames(
+            'step',
+            (activeStep.name === 'second' || activeStep.name === 'third') &&
+              'step-primary'
+          )}
+        >
+          Parents
+        </li>
+        <li
+          className={classNames(
+            'step',
+            activeStep.name === 'third' && 'step-primary'
+          )}
+        >
+          Friends
+        </li>
       </ul>
       <FormProvider {...methods}>
         <form onSubmit={methods.handleSubmit(onSubmit)} className="mt-8">
