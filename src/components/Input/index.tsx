@@ -4,22 +4,43 @@ import React, {
   ReactElement,
   Ref,
 } from 'react';
+import classNames from 'classnames';
 
-interface InputProps extends InputHTMLAttributes<HTMLInputElement> {}
+interface InputProps extends InputHTMLAttributes<HTMLInputElement> {
+  label?: string;
+  errorMessage?: string;
+}
 
 const InputComponent = (
-  { className, type, required, placeholder, ...rest }: InputProps,
+  {
+    label,
+    errorMessage,
+    className,
+    type,
+    required,
+    placeholder,
+    ...rest
+  }: InputProps,
   ref: Ref<HTMLInputElement>
 ): ReactElement => {
   return (
-    <input
-      autoComplete="off"
-      ref={ref}
-      type={type ?? 'text'}
-      className={'w-full p-4 rounded-md shadow-sm outline-none'}
-      placeholder={`${placeholder} ${required ? '*' : ''}`}
-      {...rest}
-    />
+    <>
+      {label && <label>{label}</label>}
+      <input
+        autoComplete="off"
+        ref={ref}
+        type={type ?? 'text'}
+        className={classNames(
+          'w-full p-4 rounded-md shadow-sm outline-none',
+          errorMessage && 'border border-red-400 placeholder:text-red-500'
+        )}
+        placeholder={`${placeholder} ${required ? '*' : ''}`}
+        {...rest}
+      />
+      {errorMessage ? (
+        <p className="text-red-500 text-sm font-thin">{errorMessage}</p>
+      ) : null}
+    </>
   );
 };
 
