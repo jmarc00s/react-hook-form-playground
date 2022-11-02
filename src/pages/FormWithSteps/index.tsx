@@ -1,7 +1,7 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { FormProvider, useForm, useFormState } from 'react-hook-form';
 import { Link, Outlet, useNavigate } from 'react-router-dom';
-import { z } from 'zod';
+import { undefined, z } from 'zod';
 import { zodResolver } from '@hookform/resolvers/zod';
 import * as validationMessages from '../../utils/validation/messages';
 
@@ -43,7 +43,32 @@ const schema = z.object({
   }),
 });
 
+type FormStepDef = 'first' | 'second' | 'third' | null;
+
+class FormStep {
+  name: FormStepDef;
+  next?: FormStepDef;
+  previous?: FormStepDef;
+
+  constructor(name: FormStepDef, next?: FormStepDef, previous?: FormStepDef) {
+    this.name = name;
+    this.next = next;
+    this.previous = previous;
+  }
+
+  hasNext = (): boolean => !!this.next?.length;
+  hasPrevious = (): boolean => !!this.previous?.length;
+}
+
+const formSteps = {
+  first: new FormStep('first', 'second'),
+  second: new FormStep('second', 'third', 'first'),
+  third: new FormStep('third', null, 'second'),
+};
+
 export const FormWithStepsPage = () => {
+  const [activeStep, setActiveStep] = useState<FormStep>(formSteps['first']);
+
   const { ...methods } = useForm<FormWithSteps>({
     mode: 'onChange',
     defaultValues: {
@@ -66,30 +91,59 @@ export const FormWithStepsPage = () => {
     navigate('/steps/first');
   }, []);
 
+  const handleNextStepClick = (event: React.MouseEvent<HTMLButtonElement>) => {
+    event.preventDefault();
+    if (activeStep.hasNext()) {
+      const nextStep = activeStep.next!;
+      setActiveStep(formSteps[nextStep]);
+      navigate(`${nextStep}`);
+    }
+  };
+
+  const handlePreviousStepClick = (
+    event: React.MouseEvent<HTMLButtonElement>
+  ) => {
+    event.preventDefault();
+    if (activeStep.hasPrevious()) {
+      const previousStep = activeStep.previous!;
+      setActiveStep(formSteps[previousStep]);
+      navigate(`${previousStep}`);
+    }
+  };
+
   return (
     <section className="flex flex-col w-1/2 mx-auto">
       <ul className="steps">
-        <li className="step step-secondary">
-          <Link to="first">You</Link>
-        </li>
-
-        <li className="step step-secondary">
-          <Link to="second">Parents</Link>
-        </li>
-
-        <li className="step step-secondary">
-          <Link to="third">Friends</Link>
-        </li>
+        <li className="step">You</li>
+        <li className="step">Parents</li>
+        <li className="step">Friends</li>
       </ul>
       <FormProvider {...methods}>
         <form onSubmit={methods.handleSubmit(onSubmit)} className="mt-8">
           <Outlet />
-          <button
-            disabled={!isValid}
-            className="btn btn-primary btn-block mt-8"
-          >
-            Save
-          </button>
+
+          <div className="flex justify-between mt-8">
+            <button
+              disabled={!activeStep.hasPrevious()}
+              className="btn btn-secondary"
+              onClick={handlePreviousStepClick}
+            >
+              Previous
+            </button>
+            {activeStep.hasNext() ? (
+              <button
+                disabled={!isValid}
+                className="btn btn-primary btn-wide"
+                onClick={handleNextStepClick}
+              >
+                Next
+              </button>
+            ) : (
+              <button disabled={!isValid} className="btn btn-primary btn-wide">
+                Save
+              </button>
+            )}
+          </div>
         </form>
       </FormProvider>
     </section>
