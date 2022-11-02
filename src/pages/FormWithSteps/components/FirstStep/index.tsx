@@ -15,33 +15,40 @@ export const FirstStep = () => {
         type="text"
         id="name"
         {...register('firstStep.name')}
-        placeholder="Name"
+        label="Name"
         required
         errorMessage={errors.firstStep?.name?.message}
       />
       <Input
         type="number"
         id="age"
-        {...register('firstStep.age')}
-        placeholder="Age"
+        required
+        {...register('firstStep.age', {
+          setValueAs: (value) => {
+            if (value) return parseInt(value);
+            return 0;
+          },
+        })}
+        label="Age"
+        errorMessage={errors.firstStep?.age?.message}
       />
       <Input
         type="text"
         id="street"
         {...register('firstStep.street')}
-        placeholder="Street"
+        label="Street"
       />
       <Input
         type="text"
         id="neighborhood"
         {...register('firstStep.neighborhood')}
-        placeholder="Neighborhood"
+        label="Neighborhood"
       />
       <Input
         type="text"
         id="documentNumber"
         {...register('firstStep.documentNumber')}
-        placeholder="Document number"
+        label="Document number"
       />
     </section>
   );

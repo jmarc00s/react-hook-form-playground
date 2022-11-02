@@ -3,6 +3,7 @@ import { FormProvider, useForm, useFormState } from 'react-hook-form';
 import { Link, Outlet, useNavigate } from 'react-router-dom';
 import { z } from 'zod';
 import { zodResolver } from '@hookform/resolvers/zod';
+import * as validationMessages from '../../utils/validation/messages';
 
 type FirstStepForm = {
   name: string;
@@ -34,13 +35,17 @@ export type FormWithSteps = {
 
 const schema = z.object({
   firstStep: z.object({
-    name: z.string().min(1, "can't be blank"),
+    name: z.string().min(1, validationMessages.CANT_BE_BLANK),
+    age: z
+      .number()
+      .nonnegative(validationMessages.CANT_BE_NEGATIVE)
+      .min(1, validationMessages.CANT_BE_EMPTY),
   }),
 });
 
 export const FormWithStepsPage = () => {
   const { ...methods } = useForm<FormWithSteps>({
-    mode: 'onBlur',
+    mode: 'onChange',
     defaultValues: {
       firstStep: {},
       secondStep: {},
@@ -53,7 +58,7 @@ export const FormWithStepsPage = () => {
 
   const navigate = useNavigate();
 
-  const { isValid, errors } = useFormState({ control: methods.control });
+  const { isValid } = useFormState({ control: methods.control });
 
   const onSubmit = (data: FormWithSteps) => console.log(data);
 

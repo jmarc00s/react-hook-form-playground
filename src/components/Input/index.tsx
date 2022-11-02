@@ -12,20 +12,23 @@ interface InputProps extends InputHTMLAttributes<HTMLInputElement> {
 }
 
 const InputComponent = (
-  {
-    label,
-    errorMessage,
-    className,
-    type,
-    required,
-    placeholder,
-    ...rest
-  }: InputProps,
+  { label, errorMessage, className, type, required, ...rest }: InputProps,
   ref: Ref<HTMLInputElement>
 ): ReactElement => {
   return (
     <>
-      {label && <label>{label}</label>}
+      {label && (
+        <label htmlFor={rest.id}>
+          {label}
+          {required ? (
+            <span
+              className={classNames('pl-1', errorMessage && 'text-red-500')}
+            >
+              *
+            </span>
+          ) : null}
+        </label>
+      )}
       <input
         autoComplete="off"
         ref={ref}
@@ -34,7 +37,6 @@ const InputComponent = (
           'w-full p-4 rounded-md shadow-sm outline-none',
           errorMessage && 'border border-red-400 placeholder:text-red-500'
         )}
-        placeholder={`${placeholder} ${required ? '*' : ''}`}
         {...rest}
       />
       {errorMessage ? (
