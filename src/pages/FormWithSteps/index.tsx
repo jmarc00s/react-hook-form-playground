@@ -1,6 +1,6 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { FormProvider, useForm, useFormState } from 'react-hook-form';
-import { Link, Outlet } from 'react-router-dom';
+import { Link, Outlet, useNavigate } from 'react-router-dom';
 
 type FirstStepForm = {
   name: string;
@@ -41,9 +41,16 @@ export const FormWithStepsPage = () => {
       },
     },
   });
+
+  const navigate = useNavigate();
+
   const { isValid } = useFormState({ control: methods.control });
 
   const onSubmit = (data: FormWithSteps) => console.log(data);
+
+  useEffect(() => {
+    navigate('/steps/first');
+  }, []);
 
   return (
     <section className="flex flex-col w-1/2 mx-auto">

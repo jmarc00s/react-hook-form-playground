@@ -1,13 +1,14 @@
 import React from 'react';
+import { Outlet, RouterProvider } from 'react-router-dom';
 import { Navbar } from './components/Navbar';
-import { AppRouter } from './core/router';
+import { router } from './core/router';
 
 function App() {
   return (
     <main className="min-h-screen">
       <Navbar />
       <section className="container mx-auto p-8">
-        <AppRouter />
+        <Outlet />
       </section>
     </main>
   );
