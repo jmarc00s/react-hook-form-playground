@@ -7,3 +7,4 @@ Project to play with react-hook-form
 - Form with useFormContext
 - Form with conditional field
 - Form with array of fields (useFieldArray)
+- Form with steps
