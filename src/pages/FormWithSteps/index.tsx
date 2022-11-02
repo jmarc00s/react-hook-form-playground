@@ -70,15 +70,15 @@ export const FormWithStepsPage = () => {
     <section className="flex flex-col w-1/2 mx-auto">
       <ul className="steps">
         <li className="step step-secondary">
-          <Link to="first">Step 01</Link>
+          <Link to="first">You</Link>
         </li>
 
         <li className="step step-secondary">
-          <Link to="second">Step 02</Link>
+          <Link to="second">Parents</Link>
         </li>
 
         <li className="step step-secondary">
-          <Link to="third">Step 03</Link>
+          <Link to="third">Friends</Link>
         </li>
       </ul>
       <FormProvider {...methods}>
