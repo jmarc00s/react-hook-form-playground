@@ -1,6 +1,8 @@
 import React, { useEffect } from 'react';
 import { FormProvider, useForm, useFormState } from 'react-hook-form';
 import { Link, Outlet, useNavigate } from 'react-router-dom';
+import { z } from 'zod';
+import { zodResolver } from '@hookform/resolvers/zod';
 
 type FirstStepForm = {
   name: string;
@@ -24,15 +26,21 @@ type ThirdStepForm = {
   friends: Friend[];
 };
 
-type FormWithSteps = {
+export type FormWithSteps = {
   firstStep: FirstStepForm;
   secondStep: SecondStepForm;
   thirdStep: ThirdStepForm;
 };
 
+const schema = z.object({
+  firstStep: z.object({
+    name: z.string().min(1, "can't be blank"),
+  }),
+});
+
 export const FormWithStepsPage = () => {
   const { ...methods } = useForm<FormWithSteps>({
-    mode: 'onChange',
+    mode: 'onBlur',
     defaultValues: {
       firstStep: {},
       secondStep: {},
@@ -40,11 +48,12 @@ export const FormWithStepsPage = () => {
         friends: [],
       },
     },
+    resolver: zodResolver(schema),
   });
 
   const navigate = useNavigate();
 
-  const { isValid } = useFormState({ control: methods.control });
+  const { isValid, errors } = useFormState({ control: methods.control });
 
   const onSubmit = (data: FormWithSteps) => console.log(data);
 

@@ -1,28 +1,28 @@
 import React from 'react';
-import { useFormContext } from 'react-hook-form';
+import { useFormContext, useFormState } from 'react-hook-form';
+import { FormWithSteps } from '../..';
 import { Input } from '../../../../components/Input';
 
 export const FirstStep = () => {
-  const { register } = useFormContext();
+  const {
+    register,
+    formState: { errors },
+  } = useFormContext<FormWithSteps>();
 
   return (
     <section className="flex flex-col gap-2">
       <Input
         type="text"
         id="name"
-        {...register('firstStep.name', {
-          required: true,
-        })}
-        required
+        {...register('firstStep.name')}
         placeholder="Name"
+        required
+        errorMessage={errors.firstStep?.name?.message}
       />
       <Input
         type="number"
         id="age"
-        {...register('firstStep.age', {
-          required: true,
-        })}
-        required
+        {...register('firstStep.age')}
         placeholder="Age"
       />
       <Input
