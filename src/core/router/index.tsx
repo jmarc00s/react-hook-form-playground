@@ -15,6 +15,9 @@ import { FirstStep } from '../../pages/FormWithSteps/components/FirstStep';
 import { SecondStep } from '../../pages/FormWithSteps/components/SecondStep';
 import { ThirdStep } from '../../pages/FormWithSteps/components/ThirdStep';
 import { FormWithTabs } from '../../pages/FormWithTabs';
+import { AddressTab } from '../../pages/FormWithTabs/tabs/Address';
+import { BillsTab } from '../../pages/FormWithTabs/tabs/Bills';
+import { SettingsTab } from '../../pages/FormWithTabs/tabs/Settings';
 import UserTab from '../../pages/FormWithTabs/tabs/User';
 
 export const router = createBrowserRouter([
@@ -55,6 +58,18 @@ export const router = createBrowserRouter([
           {
             path: 'user',
             element: <UserTab />,
+          },
+          {
+            path: 'address',
+            element: <AddressTab />,
+          },
+          {
+            path: 'bills',
+            element: <BillsTab />,
+          },
+          {
+            path: 'settings',
+            element: <SettingsTab />,
           },
         ],
       },

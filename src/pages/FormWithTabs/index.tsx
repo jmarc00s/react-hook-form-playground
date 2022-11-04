@@ -12,7 +12,9 @@ export const FormWithTabs = () => {
       <FormProvider {...methods}>
         <Toolbar />
         <Tabs />
-        <Outlet />
+        <div className="py-4 px-2">
+          <Outlet />
+        </div>
       </FormProvider>
     </section>
   );
