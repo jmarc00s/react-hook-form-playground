@@ -7,8 +7,7 @@ import {
   CurrencyDollarIcon,
 } from '@heroicons/react/24/solid';
 import { Tab } from './components/Tab';
-
-type Tabs = 'tab1' | 'tab2' | 'tab3' | 'tab4';
+import { useNavigate } from 'react-router-dom';
 
 type Tab = {
   id: string;
@@ -18,29 +17,35 @@ type Tab = {
 
 const tabs: Tab[] = [
   {
-    id: 'tab1',
+    id: 'user',
     name: 'User',
     icon: <UserIcon className="h-6 w-6" />,
   },
   {
-    id: 'tab2',
+    id: 'address',
     name: 'Address',
     icon: <MapPinIcon className="h-6 w-6" />,
   },
   {
-    id: 'tab3',
+    id: 'bills',
     name: 'Bills',
     icon: <CurrencyDollarIcon className="h-6 w-6" />,
   },
   {
-    id: 'tab4',
+    id: 'settings',
     name: 'Settings',
     icon: <Cog8ToothIcon className="h-6 w-6" />,
   },
 ];
 
 export const Tabs = () => {
-  const [activeTab, setActiveTab] = useState<Tabs>('tab1');
+  const [activeTab, setActiveTab] = useState<string>('user');
+  const navigate = useNavigate();
+
+  const handleTabClick = (tab: string) => {
+    navigate(tab);
+    setActiveTab(tab);
+  };
 
   return (
     <div className="tabs w-full">
@@ -48,7 +53,7 @@ export const Tabs = () => {
         <Tab
           key={tab.id}
           active={activeTab === tab.id}
-          onClick={() => setActiveTab(tab.id as Tabs)}
+          onClick={() => handleTabClick(tab.id)}
           {...tab}
         />
       ))}
