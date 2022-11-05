@@ -4,7 +4,7 @@ import { Outlet } from 'react-router-dom';
 import { Toolbar } from './components/Toolbar';
 import { Tabs } from './components/Tabs';
 
-export const FormWithTabs = () => {
+const FormWithTabs = () => {
   const { ...methods } = useForm();
 
   return (
@@ -19,3 +19,5 @@ export const FormWithTabs = () => {
     </section>
   );
 };
+
+export default FormWithTabs;

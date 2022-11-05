@@ -7,7 +7,7 @@ export const Menu = () => {
       <MenuItem label="Form" to="/" />
       <MenuItem label="Form Array" to="/formArray" />
       <MenuItem label="Form With Steps" to="/steps/first" />
-      <MenuItem label="Form With Tabs" to="/tabs" />
+      <MenuItem label="Form With Tabs" to="/tabs/user" />
     </ul>
   );
 };

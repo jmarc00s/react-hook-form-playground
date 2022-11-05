@@ -1,5 +1,7 @@
 import React from 'react';
 
-export const AddressTab = () => {
+const AddressTab = () => {
   return <div>AddressTab</div>;
 };
+
+export default AddressTab;
