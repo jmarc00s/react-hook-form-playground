@@ -1,4 +1,4 @@
-import React, { ReactElement } from 'react';
+import React, { ReactElement, forwardRef, Ref } from 'react';
 import { SelectHTMLAttributes } from 'react';
 
 interface SelectProps extends SelectHTMLAttributes<HTMLSelectElement> {
@@ -7,12 +7,10 @@ interface SelectProps extends SelectHTMLAttributes<HTMLSelectElement> {
   options?: any[];
 }
 
-export const Select = ({
-  label,
-  errorMessage,
-  options,
-  ...rest
-}: SelectProps): ReactElement => {
+const SelectComponent = (
+  { label, errorMessage, options, ...rest }: SelectProps,
+  ref: Ref<HTMLSelectElement>
+): ReactElement => {
   return (
     <div className="form-control w-full">
       {label && (
@@ -20,7 +18,7 @@ export const Select = ({
           {label}
         </label>
       )}
-      <select className="select select-bordered" {...rest}>
+      <select ref={ref} className="select select-bordered" {...rest}>
         <option selected disabled>
           Select one option...
         </option>
@@ -31,3 +29,5 @@ export const Select = ({
     </div>
   );
 };
+
+export const Select = forwardRef(SelectComponent);
