@@ -16,17 +16,19 @@ const InputComponent = (
   ref: Ref<HTMLInputElement>
 ): ReactElement => {
   return (
-    <>
+    <div className="form-control w-full">
       {label && (
-        <label htmlFor={rest.id}>
-          {label}
-          {required ? (
-            <span
-              className={classNames('pl-1', errorMessage && 'text-red-500')}
-            >
-              *
-            </span>
-          ) : null}
+        <label className="label" htmlFor={rest.id}>
+          <span className="label-text">
+            {label}
+            {required ? (
+              <span
+                className={classNames('pl-1', errorMessage && 'text-red-500')}
+              >
+                *
+              </span>
+            ) : null}
+          </span>
         </label>
       )}
       <input
@@ -42,7 +44,7 @@ const InputComponent = (
       {errorMessage ? (
         <p className="text-red-500 text-sm font-thin">{errorMessage}</p>
       ) : null}
-    </>
+    </div>
   );
 };
 
