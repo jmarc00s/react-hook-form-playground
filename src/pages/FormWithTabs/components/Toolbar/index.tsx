@@ -1,6 +1,6 @@
 import {
   PlusIcon,
-  ArchiveBoxArrowDownIcon,
+  ArrowUpOnSquareIcon,
   XMarkIcon,
 } from '@heroicons/react/24/outline';
 import React, { ReactElement } from 'react';
@@ -22,7 +22,7 @@ export const Toolbar = ({
         <PlusIcon className="h-6 w-6" /> New
       </button>
       <button onClick={onSaveClick} className="btn btn-primary gap-2">
-        <ArchiveBoxArrowDownIcon className="h-6 w-6" />
+        <ArrowUpOnSquareIcon className="h-6 w-6" />
         Save
       </button>
       <button onClick={onCancelClick} className="btn btn-primary gap-2">

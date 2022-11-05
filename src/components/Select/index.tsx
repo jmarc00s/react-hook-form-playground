@@ -5,10 +5,19 @@ interface SelectProps extends SelectHTMLAttributes<HTMLSelectElement> {
   label?: string;
   errorMessage?: string;
   options?: any[];
+  textProperty?: string;
+  valueProperty?: string;
 }
 
 const SelectComponent = (
-  { label, errorMessage, options, ...rest }: SelectProps,
+  {
+    label,
+    errorMessage,
+    options,
+    textProperty = 'text',
+    valueProperty = 'value',
+    ...rest
+  }: SelectProps,
   ref: Ref<HTMLSelectElement>
 ): ReactElement => {
   return (
@@ -18,12 +27,16 @@ const SelectComponent = (
           {label}
         </label>
       )}
-      <select ref={ref} className="select select-bordered" {...rest}>
+      <select
+        ref={ref}
+        className="select select-bordered select-ghost"
+        {...rest}
+      >
         <option selected disabled>
           Select one option...
         </option>
         {options?.map((option) => (
-          <option value={option}>{option}</option>
+          <option value={option[valueProperty]}>{option[textProperty]}</option>
         ))}
       </select>
     </div>
