@@ -23,4 +23,5 @@ type SettingsFormType = {
 export type FormWithTabsFormType = {
   user: UserFormType;
   address: AddressFormType;
+  settings: SettingsFormType;
 };

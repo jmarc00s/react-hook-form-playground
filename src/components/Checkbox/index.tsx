@@ -7,9 +7,13 @@ interface CheckboxProps extends InputHTMLAttributes<HTMLInputElement> {
 
 export const Checkbox = ({ label, errorMessage, ...rest }: CheckboxProps) => {
   return (
-    <label htmlFor={rest.id}>
-      <input type="checkbox" className="checkbox checkbox-primary" {...rest} />
-      {label}
+    <label className="flex items-center w-full " htmlFor={rest.id}>
+      <input
+        type="checkbox"
+        className="checkbox checkbox-primary mr-2"
+        {...rest}
+      />
+      <span className="cursor-pointer">{label}</span>
     </label>
   );
 };
