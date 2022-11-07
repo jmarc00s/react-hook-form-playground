@@ -14,6 +14,12 @@ type AddressFormType = {
   city: string;
 };
 
+type SettingsFormType = {
+  active: boolean;
+  showLateBills: boolean;
+  showUpcomingBills: boolean;
+};
+
 export type FormWithTabsFormType = {
   user: UserFormType;
   address: AddressFormType;

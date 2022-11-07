@@ -17,7 +17,15 @@ const addressSchema = z.object({
   city: z.string(),
 });
 
+const settingsSchema = z.object({
+  active: z.boolean().default(true),
+  showLateBills: z.boolean().default(false),
+  showUpcomingBills: z.boolean().default(true),
+  dueDay: z.enum(['5', '10', '15']).default('5'),
+});
+
 export const schema = z.object({
   user: userSchema,
   address: addressSchema,
+  settings: settingsSchema,
 });
