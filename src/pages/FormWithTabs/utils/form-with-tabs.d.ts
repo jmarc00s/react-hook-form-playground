@@ -7,6 +7,14 @@ type UserFormType = {
   civilStatus: 'single' | 'married' | 'other';
 };
 
+type AddressFormType = {
+  street: string;
+  neighborhood: string;
+  zipCode: string;
+  city: string;
+};
+
 export type FormWithTabsFormType = {
   user: UserFormType;
+  address: AddressFormType;
 };
