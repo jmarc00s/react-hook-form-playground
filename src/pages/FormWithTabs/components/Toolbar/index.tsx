@@ -4,17 +4,18 @@ import {
   ArrowUpOnSquareIcon,
   XMarkIcon,
 } from '@heroicons/react/24/outline';
-import { useTabsFormContext } from 'pages/FormWithTabs/utils/hooks/useTabsFormContext';
+import { useUiContext } from 'pages/FormWithTabs/utils/hooks/useUiContext';
 
 export const Toolbar = (): ReactElement => {
-  const { handleSubmit } = useTabsFormContext();
+  const { cancel, setAdding, formStatus } = useUiContext();
 
-  const onNewClick = () => console.log('onNew');
+  const onNewClick = () => setAdding();
   const onSaveClick = () => console.log('onSave');
-  const onCancelClick = () => console.log('onCancel');
+  const onCancelClick = () => cancel();
 
   return (
     <div className="flex justify-center gap-2">
+      {JSON.stringify(formStatus)}
       <button onClick={onNewClick} className="btn gap-2 btn-primary w-32">
         <PlusIcon className="h-6 w-6" /> New
       </button>

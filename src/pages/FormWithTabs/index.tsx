@@ -7,6 +7,7 @@ import { Tabs } from './components/Tabs';
 import { FormWithTabsFormType } from './utils/form-with-tabs';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { schema } from './utils/form-schema';
+import { UiContextProvider } from './utils/context/UiContext';
 
 const FormWithTabs = () => {
   const { ...methods } = useForm<FormWithTabsFormType>({
@@ -18,13 +19,15 @@ const FormWithTabs = () => {
 
   return (
     <section className="flex flex-col w-full">
-      <FormProvider {...methods}>
-        <Toolbar />
-        <Tabs />
-        <div className="py-4 px-2">
-          <Outlet />
-        </div>
-      </FormProvider>
+      <UiContextProvider>
+        <FormProvider {...methods}>
+          <Toolbar />
+          <Tabs />
+          <div className="py-4 px-2">
+            <Outlet />
+          </div>
+        </FormProvider>
+      </UiContextProvider>
     </section>
   );
 };
