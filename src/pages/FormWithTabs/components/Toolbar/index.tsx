@@ -1,21 +1,18 @@
+import React, { ReactElement } from 'react';
 import {
   PlusIcon,
   ArrowUpOnSquareIcon,
   XMarkIcon,
 } from '@heroicons/react/24/outline';
-import React, { ReactElement } from 'react';
+import { useTabsFormContext } from 'pages/FormWithTabs/utils/hooks/useTabsFormContext';
 
-type ToolbarProps = {
-  onNewClick?: () => void;
-  onSaveClick?: () => void;
-  onCancelClick?: () => void;
-};
+export const Toolbar = (): ReactElement => {
+  const { handleSubmit } = useTabsFormContext();
 
-export const Toolbar = ({
-  onSaveClick,
-  onCancelClick,
-  onNewClick,
-}: ToolbarProps): ReactElement => {
+  const onNewClick = () => console.log('onNew');
+  const onSaveClick = () => console.log('onSave');
+  const onCancelClick = () => console.log('onCancel');
+
   return (
     <div className="flex justify-center gap-2">
       <button onClick={onNewClick} className="btn gap-2 btn-primary w-32">

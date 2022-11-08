@@ -35,8 +35,10 @@ const SelectComponent = (
         <option selected disabled>
           Select one option...
         </option>
-        {options?.map((option) => (
-          <option value={option[valueProperty]}>{option[textProperty]}</option>
+        {options?.map((option, index) => (
+          <option key={index} value={option[valueProperty]}>
+            {option[textProperty]}
+          </option>
         ))}
       </select>
     </div>

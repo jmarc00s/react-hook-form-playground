@@ -14,6 +14,8 @@ const FormWithTabs = () => {
     resolver: zodResolver(schema),
   });
 
+  const onSubmit = (data: FormWithTabsFormType): void => console.log(data);
+
   return (
     <section className="flex flex-col w-full">
       <FormProvider {...methods}>
