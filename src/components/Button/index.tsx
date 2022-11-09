@@ -8,6 +8,7 @@ interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
   children?: ReactElement | string;
   wide?: boolean;
   block?: boolean;
+  icon?: ReactElement;
 }
 
 export const Button = ({
@@ -17,6 +18,7 @@ export const Button = ({
   block = false,
   className,
   children,
+  icon,
   ...rest
 }: ButtonProps): ReactElement => {
   return (
@@ -31,7 +33,8 @@ export const Button = ({
       )}
       {...rest}
     >
-      {children}
+      {icon}
+      <span className="ml-1">{children}</span>
     </button>
   );
 };
