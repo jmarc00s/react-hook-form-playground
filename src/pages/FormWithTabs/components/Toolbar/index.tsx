@@ -15,7 +15,7 @@ export const Toolbar = (): ReactElement => {
   const onCancelClick = () => cancel();
 
   return (
-    <div className="flex justify-between items-center ">
+    <div className="flex justify-between items-center mb-8">
       <div className="flex gap-2">
         <button onClick={onNewClick} className="btn gap-2 btn-primary w-32">
           <PlusIcon className="h-6 w-6" /> New
@@ -29,7 +29,7 @@ export const Toolbar = (): ReactElement => {
           Cancel
         </button>
       </div>
-      <Badge text={formStatus} size="lg" variant="secondary" />
+      <Badge text={formStatus} size="lg" variant="primary" />
       <div></div>
     </div>
   );

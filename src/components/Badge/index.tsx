@@ -22,8 +22,13 @@ export const Badge = ({
   text,
   size = 'md',
   variant = 'ghost',
-}: BadgeProps): ReactElement => (
-  <div className={classNames('badge', `badge-${size}`, `badge-${variant}`)}>
-    {text}
-  </div>
-);
+}: BadgeProps): ReactElement => {
+  return (
+    <div
+      title={text}
+      className={classNames(['badge', `badge-${variant}`, `badge-${size}`])}
+    >
+      {text}
+    </div>
+  );
+};
