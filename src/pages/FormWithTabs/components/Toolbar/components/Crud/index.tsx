@@ -9,39 +9,37 @@ import { Button } from 'components/Button';
 import { useUiContext } from 'pages/FormWithTabs/utils/hooks/useUiContext';
 
 export const Crud = () => {
-  const { cancel, setAdding, formStatus } = useUiContext();
+  const { cancel, setAdding, isAddingOrEditing, isShowing } = useUiContext();
 
   const onNewClick = () => setAdding();
   const onSaveClick = () => console.log('onSave');
   const onCancelClick = () => cancel();
 
-  const disableNewButton = formStatus === 'adding' || formStatus === 'editing';
-
   return (
     <div className="flex gap-2">
       <Button
-        disabled={disableNewButton}
+        disabled={isAddingOrEditing}
         onClick={onNewClick}
         icon={<PlusIcon className="h-6 w-6" />}
       >
         New
       </Button>
       <Button
-        disabled={disableNewButton}
+        disabled={isAddingOrEditing}
         onClick={onNewClick}
         icon={<PencilIcon className="h-6 w-6" />}
       >
         Edit
       </Button>
       <Button
-        disabled={formStatus === 'showing'}
+        disabled={isShowing}
         onClick={onSaveClick}
         icon={<ArrowUpOnSquareIcon className="h-6 w-6" />}
       >
         Save
       </Button>
       <Button
-        disabled={formStatus === 'showing'}
+        disabled={isShowing}
         onClick={onCancelClick}
         icon={<XMarkIcon className="h-6 w-6" />}
       >

@@ -4,7 +4,8 @@ type FormStatus = 'adding' | 'showing' | 'editing';
 
 type TabsFormUiContextType = {
   formStatus: FormStatus;
-  isDisabled: boolean;
+  isShowing: boolean;
+  isAddingOrEditing: boolean;
   setAdding: () => void;
   cancel: () => void;
 };
@@ -13,7 +14,8 @@ export const UiContext = createContext<TabsFormUiContextType>({
   formStatus: 'showing',
   setAdding: () => {},
   cancel: () => {},
-  isDisabled: true,
+  isShowing: true,
+  isAddingOrEditing: false,
 });
 
 type UiContextProviderType = { children: ReactNode };
@@ -24,15 +26,15 @@ export const UiContextProvider = ({ children }: UiContextProviderType) => {
   const setAdding = () => setFormStatus('adding');
   const cancel = () => setFormStatus('showing');
 
-  const isDisabled = useMemo(() => {
-    return formStatus === 'showing';
-  }, [formStatus]);
+  const isShowing = formStatus === 'showing';
+  const isAddingOrEditing = formStatus === 'adding' || formStatus === 'editing';
 
   const value = {
     formStatus,
     setAdding,
     cancel,
-    isDisabled,
+    isShowing,
+    isAddingOrEditing,
   };
 
   return <UiContext.Provider value={value}>{children}</UiContext.Provider>;

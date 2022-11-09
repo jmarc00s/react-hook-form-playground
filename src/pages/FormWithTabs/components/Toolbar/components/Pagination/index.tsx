@@ -11,26 +11,24 @@ import { useUiContext } from 'pages/FormWithTabs/utils/hooks/useUiContext';
 const iconClass = 'h-6 w-6';
 
 const Pagination = () => {
-  const { formStatus } = useUiContext();
-
-  const disableButtons = formStatus === 'adding' || formStatus === 'editing';
+  const { isAddingOrEditing } = useUiContext();
 
   return (
     <div className="flex gap-2">
       <Button
-        disabled={disableButtons}
+        disabled={isAddingOrEditing}
         icon={<ChevronDoubleLeftIcon className={iconClass} />}
       />
       <Button
-        disabled={disableButtons}
+        disabled={isAddingOrEditing}
         icon={<ChevronLeftIcon className={iconClass} />}
       />
       <Button
-        disabled={disableButtons}
+        disabled={isAddingOrEditing}
         icon={<ChevronRightIcon className={iconClass} />}
       ></Button>
       <Button
-        disabled={disableButtons}
+        disabled={isAddingOrEditing}
         icon={<ChevronDoubleRightIcon className={iconClass} />}
       />
     </div>

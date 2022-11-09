@@ -22,7 +22,7 @@ const UserTab = () => {
     formState: { errors },
   } = useTabsFormContext();
 
-  const { isDisabled } = useUiContext();
+  const { isShowing: isDisabled } = useUiContext();
 
   const firstNameErrors = errors?.user?.firstName?.message;
 
