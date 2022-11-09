@@ -16,7 +16,10 @@ export const Badge = ({
   return (
     <div
       title={text}
-      className={classNames(['badge', `badge-${variant}`, `badge-${size}`])}
+      className={classNames(
+        ['badge', `badge-${variant}`, `badge-${size}`],
+        'capitalize'
+      )}
     >
       {text}
     </div>

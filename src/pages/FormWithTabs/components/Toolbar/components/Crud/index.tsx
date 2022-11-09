@@ -9,9 +9,11 @@ import { Button } from 'components/Button';
 import { useUiContext } from 'pages/FormWithTabs/utils/hooks/useUiContext';
 
 export const Crud = () => {
-  const { cancel, setAdding, isAddingOrEditing, isShowing } = useUiContext();
+  const { cancel, setAdding, setEditing, isAddingOrEditing, isShowing } =
+    useUiContext();
 
   const onNewClick = () => setAdding();
+  const onEditClick = () => setEditing();
   const onSaveClick = () => console.log('onSave');
   const onCancelClick = () => cancel();
 
@@ -26,7 +28,7 @@ export const Crud = () => {
       </Button>
       <Button
         disabled={isAddingOrEditing}
-        onClick={onNewClick}
+        onClick={onEditClick}
         icon={<PencilIcon className="h-6 w-6" />}
       >
         Edit

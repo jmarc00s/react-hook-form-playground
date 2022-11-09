@@ -7,12 +7,14 @@ type TabsFormUiContextType = {
   isShowing: boolean;
   isAddingOrEditing: boolean;
   setAdding: () => void;
+  setEditing: () => void;
   cancel: () => void;
 };
 
 export const UiContext = createContext<TabsFormUiContextType>({
   formStatus: 'showing',
   setAdding: () => {},
+  setEditing: () => {},
   cancel: () => {},
   isShowing: true,
   isAddingOrEditing: false,
@@ -24,6 +26,7 @@ export const UiContextProvider = ({ children }: UiContextProviderType) => {
   const [formStatus, setFormStatus] = useState<FormStatus>('showing');
 
   const setAdding = () => setFormStatus('adding');
+  const setEditing = () => setFormStatus('editing');
   const cancel = () => setFormStatus('showing');
 
   const isShowing = formStatus === 'showing';
@@ -32,6 +35,7 @@ export const UiContextProvider = ({ children }: UiContextProviderType) => {
   const value = {
     formStatus,
     setAdding,
+    setEditing,
     cancel,
     isShowing,
     isAddingOrEditing,
