@@ -1,4 +1,4 @@
-import React, { ReactElement, useState } from 'react';
+import React, { ReactElement, useEffect, useState } from 'react';
 import { FormProvider, useForm } from 'react-hook-form';
 import { Outlet } from 'react-router-dom';
 import { Toolbar } from './components/Toolbar';
@@ -14,6 +14,16 @@ const FormWithTabs = () => {
     mode: 'onChange',
     resolver: zodResolver(schema),
   });
+
+  const getFormData = async () => {
+    const res = await fetch('http://localhost:4000/formWithTabs');
+    const data = await res.json();
+    methods.reset(data[0]);
+  };
+
+  useEffect(() => {
+    getFormData();
+  }, []);
 
   const onSubmit = (data: FormWithTabsFormType): void => console.log(data);
 
