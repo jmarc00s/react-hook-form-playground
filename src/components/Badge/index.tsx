@@ -1,21 +1,11 @@
 import React, { ReactElement } from 'react';
 import classNames from 'classnames';
-
-type BadgeSize = 'lg' | 'md' | 'sm' | 'md';
-type BadgeVariant =
-  | 'primary'
-  | 'secondary'
-  | 'accent'
-  | 'ghost'
-  | 'info'
-  | 'success'
-  | 'warning'
-  | 'error';
+import { SizeType, VariantType } from 'utils/types';
 
 type BadgeProps = {
   text: string;
-  size?: BadgeSize;
-  variant?: BadgeVariant;
+  size?: SizeType;
+  variant?: VariantType;
 };
 
 export const Badge = ({
