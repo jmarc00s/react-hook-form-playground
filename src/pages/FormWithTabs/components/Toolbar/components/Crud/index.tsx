@@ -7,12 +7,39 @@ import {
 } from '@heroicons/react/24/outline';
 import { Button } from 'components/Button';
 import { useUiContext } from 'pages/FormWithTabs/utils/hooks/useUiContext';
+import { useTabsFormContext } from 'pages/FormWithTabs/utils/hooks/useTabsFormContext';
+import { FormWithTabsFormType } from 'pages/FormWithTabs/utils/form-with-tabs';
 
 export const Crud = () => {
   const { cancel, setAdding, setEditing, isAddingOrEditing, isShowing } =
     useUiContext();
+  const { reset: resetForm } = useTabsFormContext();
 
-  const onNewClick = () => setAdding();
+  const onNewClick = () => {
+    setAdding();
+    const emptyState: FormWithTabsFormType = {
+      id: 0,
+      address: {
+        street: '',
+        neighborhood: '',
+        city: '',
+        zipCode: '',
+      },
+      settings: {
+        active: true,
+        showLateBills: true,
+        showUpcomingBills: true,
+      },
+      user: {
+        birth: null,
+        documentNumber: '',
+        firstName: '',
+        lastName: '',
+      },
+    };
+    resetForm(emptyState);
+  };
+
   const onEditClick = () => setEditing();
   const onSaveClick = () => console.log('onSave');
   const onCancelClick = () => cancel();

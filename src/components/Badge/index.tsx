@@ -11,7 +11,7 @@ type BadgeProps = {
 export const Badge = ({
   text,
   size = 'md',
-  variant = 'ghost',
+  variant = 'primary',
 }: BadgeProps): ReactElement => {
   return (
     <div

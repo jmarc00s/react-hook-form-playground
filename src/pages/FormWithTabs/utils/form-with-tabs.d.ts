@@ -1,10 +1,10 @@
 type UserFormType = {
   firstName: string;
   lastName: string;
-  birth: Date;
+  birth?: Date | null;
   documentNumber: string;
-  gender: 'M' | 'F' | 'O';
-  civilStatus: 'single' | 'married' | 'other';
+  gender?: 'M' | 'F' | 'O';
+  civilStatus?: 'single' | 'married' | 'other';
 };
 
 type AddressFormType = {
@@ -21,6 +21,7 @@ type SettingsFormType = {
 };
 
 export type FormWithTabsFormType = {
+  id: number;
   user: UserFormType;
   address: AddressFormType;
   settings: SettingsFormType;
